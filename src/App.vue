@@ -3,15 +3,26 @@
     <img src="./assets/logo.png">
     <router-view/>
     <Test></Test>
+    <div>从configuration.json中读取的gitHub用户名是{{githubUsername}}</div>
   </div>
 </template>
 
 <script>
 import Test from './components/Test.vue'
+import {mapGetters} from 'vuex'
 export default {
   name: 'App',
   components:{
     Test
+  },
+  created(){
+    this.$store.dispatch("Init")
+  },
+
+  computed:{
+    ...mapGetters([
+      'githubUsername'
+    ])
   }
 }
 </script>

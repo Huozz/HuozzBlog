@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
+    <div>从configuration.json中读取的gitHub用户名是{{$store.state.configuration.githubUsername}}</div>
     <ul>
       <li>
         <a

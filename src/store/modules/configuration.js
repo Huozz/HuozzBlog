@@ -1,6 +1,6 @@
 const configuration ={
     state:{
-        githubUsername: "",
+        githubUsername: "huozz",
         blogTitle: "",
         blogDescribe: "",
         htmlTitle: "",
@@ -18,6 +18,7 @@ const configuration ={
         // 此处configuration 指向configu
         SETCONFIGURATION: (state, configuration) => {
             state.githubUsername = configuration['githubUsername'] || "huozz";
+            console.log(state.githubUsername)
             // 博客首页的名字
             state.blogTitle = configuration['blogTitle'] || state.githubUsername;
             state.blogDescribe = configuration['blogDescribe'] || `欢迎来到${state.githubUsername}的个人博客`;
@@ -42,7 +43,8 @@ const configuration ={
         }
     },
     actions:{
-        Init({commit}){
+        // Init({commit}){
+        Init(context){
             let xmlhttp;
             if(window.XMLHttpRequest){
                 xmlhttp = new XMLHttpRequest();
@@ -54,11 +56,14 @@ const configuration ={
             xmlhttp.open("GET","../../../static/configuration.json",false);
             // 发送http请求
             xmlhttp.send();
+            console.log(xmlhttp.responseText);
             // JSON将返回的JSON解析为对象
             let configuration = JSON.parse(xmlhttp.responseText);
             // 将获取到的configuration作为参数 交给mutation 对数据进行修改
-            commit('SETCONFIGURATION', configuration);
+            context.commit('SETCONFIGURATION', configuration);
 
         }
     }
 }
+
+export default configuration
