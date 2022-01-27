@@ -8,4 +8,5 @@ export default {
             url: '/users/'+githubUsername
         })
     }
+
 }

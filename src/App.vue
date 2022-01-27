@@ -5,16 +5,14 @@
 </template>
 
 <script>
-import Layout from './views/layout/Layouts.vue'
 import {mapGetters} from 'vuex'
 export default {
   name: 'App',
-  components:{
-    Layout
-  },
+
   created(){
     this.$store.dispatch("Init")
     this.$store.dispatch("GetInfo")
+    this.$router.push('/')
   },
 
   computed:{
