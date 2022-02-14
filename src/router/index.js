@@ -108,7 +108,7 @@ export const constantRouterMap=[
         }
       },
       {
-        path: 'detail/:id',
+        path: 'details/:id',
         component: BlogDetails,
         meta: {
           title: '博客详情'

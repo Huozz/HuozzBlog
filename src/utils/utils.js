@@ -50,6 +50,59 @@ export default {
         } else if(element.mozRequestFullScreen){
             document.mozCancelFullScreen()
         }
+    },
+    // 结果有多页时的处理， 返回总页数
+    parseHeaders(headers){
+        try {
+            // 多个链接之间用逗号隔开
+            let linkArr = headers.split(",")
+            for (let i = 0; i < linkArr.length; i++) {
+                let temp = linkArr[i]
+                // 如果不是以last结尾的link对象，则跳过
+                if (temp.indexOf("rel=\"last\"") < 0) {
+                    continue
+                }
+                // 以问号或者与号作分割符
+                let paramArr = temp.split(/[\?&]/)
+                for (let j = 0; j < paramArr.length; j++) {
+                    let stemp = paramArr[j]
+                    let kv = stemp.split("=")
+                    // 找到 page=pageNum
+                    if (kv[0] != "page") {
+                        continue
+                    }
+                    // 返回pageNum
+                    let pageNumber = parseInt(kv[1])
+                    console.log(pageNumber)
+                    return pageNumber
+                }
+            }
+        } catch (e) {
 
+        }
+
+        return 0
+    },
+    addHttp(url){
+        return url.match(/https?:\/\//i) ? "" : "https://" +  url
+    },
+    // 将utc时间转换为东八区时间,输入格式形如 2022-02-12T11:06:31z
+    // 输出格式形如 2022-02-12 11:06:31 (具体数值不是这个)
+    utcToLocal(time){
+        // 当数字小于10时前面补0
+        let formatNum = (num)=> {
+            return num < 10? '0'+num : num;
+        }
+        let arr = time.split(/[^0-9]/)
+        let world = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5])
+        // 东八区时间比UTC时间早8个小时
+        let local = new Date(world.getTime() + 8 * 60 * 60 * 1000)
+        return formatNum(local.getFullYear()) + '-'+
+            formatNum(local.getMonth() + 1) + '-' +
+            formatNum(local.getDay())+ ' '+
+            formatNum(local.getHours()) +':'+
+            formatNum(local.getMinutes()) + ':'+
+            formatNum(local.getSeconds())
     }
+
 }

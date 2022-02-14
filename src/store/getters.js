@@ -1,6 +1,7 @@
 // 将configuration, users中的属性都写入getter中方便获取
 // 本身getter的参数就是
 const getters = {
+    token: state => state.token.token,
     githubUsername: state => state.configuration.githubUsername,
     blogTitle: state => state.configuration.blogTitle,
     blogDescribe: state => state.configuration.blogDescribe,
@@ -16,7 +17,7 @@ const getters = {
     name: state => state.users.name,
     location: state => state.users.location,
     blog: state => state.users.blog,
-    followers: state => state.users.followers,
-    following: state => state.users.following
+    followersTotal: state => state.users.followers,
+    followingTotal: state => state.users.following
 }
 export default getters

@@ -1,6 +1,6 @@
 const configuration ={
     state:{
-        githubUsername: "huozz",
+        githubUsername: "Huozz",
         blogTitle: "",
         blogDescribe: "",
         htmlTitle: "",
@@ -17,7 +17,7 @@ const configuration ={
         // SETCONFIGURATION是mutation的一个方法, 本事mutation就需要带一个state固定参数再加上传入的参数
         // 此处configuration 指向configu
         SETCONFIGURATION: (state, configuration) => {
-            state.githubUsername = configuration['githubUsername'] || "huozz";
+            state.githubUsername = configuration['githubUsername'] || "Huozz";
             console.log(state.githubUsername)
             // 博客首页的名字
             state.blogTitle = configuration['blogTitle'] || state.githubUsername;

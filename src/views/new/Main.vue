@@ -1,6 +1,30 @@
 <template>
-    <!-- newMain -->
-   <div>我是NewMain</div>
+    <!-- newMain,最近更新是gistapi返回的list第一个元素 -->
+   <div style="min-heighr:600px" v-loading="loading">
+      <el-card shadow="never" style="min-height: 400px" v-if="blog.id">
+         <div slot="header">
+            <span>{{blog.title}}</span>
+         </div>
+         <div style="font-size:0.9rem; 
+               line-height:1.5; 
+               color: #606c71;
+               " >
+            创建{{blog.createTime}}
+            <br>
+            更新{{blog.updateTime}}
+         </div>
+         <div style="font-size: 1.1rem;line-height: 1.5;color: #303133;border-bottom: 1px solid #E4E7ED;padding: 5px 0px 5px 0px">
+            {{blog.description}}
+         </div>
+         <div v-html="blog.content" class="mark-down-body" style="padding-top:20px" ></div>
+      </el-card>
+      <el-card shadow="never" style="margin-bottom: 40px padding: 20px 0px 20px 0px text-align:center" v-if="!blog.id">
+         <font style="font-size: 30px; color: #ddddd">
+            <b>没有更新</b>
+         </font>
+      </el-card>
+   </div>
+
 </template>
 
 <script>
@@ -35,19 +59,26 @@ export default {
       this.loading = true
       GistApi.list(this.query).then((response) => {
          let result = response.data
-         console.log("result",result)
          if(!result || result.length==0){
             this.loading = false
             return
          }
-         
-         // for (let key in result[0].files){
-         //    this.blog.id = result[0]['id']
-         //    break
-         // }
-         // GistApi.single
+         // 由于list中没有博文的content，因此再请求single获取该博文详细内容
+         this.blog.id = result[0]['id']
+         GistApi.single(this.blog.id).then((response)=>{
+            this.result = response.data
+            for(let key in result[0].files){
+               this.blog.description = result[0]['description']
+               this.blog.title = key
+               this.blog.content = result[0].files[key]['content']
+               this.blog.createTime = this.$util.utcToLocal(result[0].created_at)
+               this.blog.updateTime = this.$util.utcToLocal(result[0].updated_at)
+               break
+            }
+         }).then(()=>{
+            this.loading = false
+         })
       })
-
    }
 }
 </script>

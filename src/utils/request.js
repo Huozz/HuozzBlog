@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store'
 
 
 
@@ -9,11 +10,14 @@ const service = axios.create({
 // 拦截器
 service.interceptors.request.use(
     config => {
-        // 先这么写着，对token的处理后续再增加
-        return config;
+        let token = store.state.token.temp
+        console.log("token",token)
+        if (token) {
+            config.headers.Authorization = `token ${token}`
+        }
+        return config
     },
-    // 对请求失败时暂时不作处理
-    err => {
+    error => {
 
     }
 )
@@ -23,9 +27,10 @@ service.interceptors.response.use(
         return response;
     },
     err => {
-        if(err.response.status == 401){
-            console.log("请求失败,token有误")
-        }
+        // if(err.response.status == 401){
+        //     console.log("请求失败,token有误")
+        // }
+        console.log('token有误')
     }
 
 )
