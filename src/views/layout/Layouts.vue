@@ -17,14 +17,14 @@
             <h1 class="project-name">{{blogTitle}}</h1>
             <h2 class="project-tagline">{{blogDescribe}}</h2>
             <!-- github主页链接 -->
-            <a :href="'https://github.com/'+githubUsername" target="_blank" class="btn">github主页</a>
+            <a :href="'https://github.com/'+githubUsername" target="_blank" class="btn">Github主页</a>
         </section>
         <div style="position: relative; z-index: 2; margin: auto; margin-top:-30px; width:64rem;">
             <el-card>
                 <el-row>
                     <!-- github主页、博客信息复选框 -->
                     <el-col :span="10">
-                        <el-menu @select="selectTopbar" mode="horizontal" menu-trigger="click">
+                        <el-menu @select="selectTopbar" :default-active="topBar.active" mode="horizontal" menu-trigger="click">
                             <el-submenu index="#more">
                                 <template slot="title">了解博主</template>
                                 <el-menu-item index="#githubHome">github主页</el-menu-item>
@@ -191,26 +191,31 @@ export default {
     }
     .project-name{
         font-size: 3.5rem;
+        margin-top: 0;
+        margin-bottom: 0.1rem;
     }
     .project-tagline{
         font-size: 1.5rem;
         opacity: 0.8;
+        margin-bottom: 2rem;
     }
     .btn{
         padding: 0.75rem 1rem;
+        display: inline-block;
         margin-bottom: 1rem;
         border: 1px solid rgba(255, 255, 255, 0.2);
         color: rgba(255, 255, 255, 0.7);
         background-color: rgba(255, 255, 255, 0.08);
-        border-radius: 0.2rem;
+        border-radius: 0.3rem;
         /* transition: color 0.2s, background-color 0.2s, border-color 0.2s; */
-        position: absolute;
-
     }
     .btn :hover{
         color : rgba(255, 255, 255, 0.7);
         background-color: rgba(255, 255, 255, 0.2);
         border-color: rgba(255, 255, 255, 0.2);
+    }
+    a{
+        text-decoration: none;
     }
     .foot{
         width: 64rem;
@@ -218,5 +223,13 @@ export default {
         font-size: 12px ;
         color: #586069;
         word-wrap: break-word;
+    } 
+    .main-content {
+        max-width: 64rem;
+        padding: 30px 0px 30px 0px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        word-wrap: break-word;
+        min-height: 800px;
     }
 </style>

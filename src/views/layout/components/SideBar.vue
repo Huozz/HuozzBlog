@@ -1,16 +1,16 @@
 <template>
    <div>
-      <el-card>
+      <el-card shadow="never">
          <el-menu :default-active="active" @select="onSelect">
             <el-menu-item v-for="item in constantRouterMap" v-if="item.meta && item.meta.type=='user'" 
             :key="item.path"
-            :index="item.path">
+            :index="item.path" style="text-align:left">
             <i :class="item.meta.icon"></i>
             <span slot="title">{{item.meta.title}}</span>
             </el-menu-item>
          </el-menu>
       </el-card>
-      <el-card shadow="never">
+      <el-card shadow="never" style="margin-top:20px; text-align:center">
          <div v-if="!token">
             <el-tag type="danger">&nbsp;</el-tag> Token未绑定 &nbsp; &nbsp;
             <el-button type="text" @click="openTokenDialogue">绑定</el-button>

@@ -1,22 +1,23 @@
 <template>
     <!-- newMain,最近更新是gistapi返回的list第一个元素 -->
    <div style="min-heighr:600px" v-loading="loading">
-      <el-card shadow="never" style="min-height: 400px" v-if="blog.id">
-         <div slot="header">
+      <el-card shadow="never" style="min-height: 400px" v-if="blog.id" >
+         <div slot="header" style="text-align:left">
             <span>{{blog.title}}</span>
          </div>
          <div style="font-size:0.9rem; 
                line-height:1.5; 
                color: #606c71;
+               text-align: left;
                " >
             创建{{blog.createTime}}
             <br>
             更新{{blog.updateTime}}
          </div>
-         <div style="font-size: 1.1rem;line-height: 1.5;color: #303133;border-bottom: 1px solid #E4E7ED;padding: 5px 0px 5px 0px">
+         <div style="font-size: 1.1rem;line-height: 1.5;color: #303133;border-bottom: 1px solid #E4E7ED;padding: 35px 0px 5px 0px; text-align:left">
             {{blog.description}}
          </div>
-         <div v-html="blog.content" class="mark-down-body" style="padding-top:20px" ></div>
+         <!-- <div v-html="blog.content" class="markdown-body" style="padding-top:40px" ></div> -->
       </el-card>
       <el-card shadow="never" style="margin-bottom: 40px padding: 20px 0px 20px 0px text-align:center" v-if="!blog.id">
          <font style="font-size: 30px; color: #ddddd">

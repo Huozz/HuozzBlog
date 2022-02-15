@@ -4,23 +4,25 @@
          <div slot="header">
             <el-row>
                <el-col :span="12">
-                  <span>{{blog.title}}</span>
+                  <div style="text-align:left">
+                     <span style="text-align: left">{{blog.title}}</span>
+                  </div>
                </el-col>
                <el-col :span="12">
-                  <div style="text-align: center">
+                  <div style="text-align: right">
                      <el-button @click="goBack" icon="el-icon-back" style="padding: 3px 0" type="text">返回</el-button>
                      <el-button @click="goEdit" icon="el-icon-edit-outline" style="padding 3px 0" type="text">编辑</el-button>
                   </div>
                </el-col>
             </el-row>
          </div>
-         <div style="font-size: 0.9 rem; line-height: 1.5; color:#606c71">
+         <div style="font-size: 0.9rem; line-height: 1.5; color:#606c71; text-align: left">
             发布于 {{this.blog.creationTime}}
             <br>
             更新于 {{this.blog.editTime}}
          </div>
-         <div style="font-size: 1.1 rem; line-height: 15px; color:#303133; border-bottom: 1px solid #E4E7ED; padding: 5px 0px 5px 0px">
-            <pre style="font-family: 微软雅黑">{{blog.description}}</pre>
+         <div style="font-size: 1.1rem; line-height: 1.5; color:#303133; border-bottom: 1px solid #E4E7ED; padding: 35px 0px 5px 0px">
+            <div style="font-family: 微软雅黑; text-align:left">{{blog.description}}</div>
          </div>
          <div class="mavon-editor">
             <mavon-editor v-html="blog.content"></mavon-editor>

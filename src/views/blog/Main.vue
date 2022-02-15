@@ -6,23 +6,28 @@
          <el-button @click="goAdd" type="primary" icon="el-icon-edit" round plain style="float:right">写博文</el-button>   
       </el-card>
       <div v-if="blogs && blogs.length>0">
-         <el-card shadow="never" v-for="(item,index) in blogs" :key="'p'+index" style="margin-bottom:20px" >
+         <el-card shadow="hover" v-for="(item,index) in blogs" :key="'p'+index" style="margin-bottom:20px" >
             <el-row>
-               <el-col :span=16>
-                  <span>
+               <el-col :span=20 style="text-align:left">
+                  <span style="text-align:left">
                      <a style="text-decoration:none; cursor:pointer" @click="goDetails(item.id)">
-                        <i class="el-icon-edit-outline">&nbsp;&nbsp;</i>{{item.title}}
+                        <i class="el-icon-edit-outline" >&nbsp;&nbsp;</i>{{item.title}}
                      </a>
                   </span>
                </el-col>
-               <el-col :span=8>
+               <el-col :span=4>
                   <div style="text-align: right">
                      <el-button @click="editBlog(item.id)" style="padding: 3px 0" type="text" icon="el-icon-edit" v-if="token"> </el-button>
                      <el-button @click="deleteBlog(index)" style="padding: 3px 0" type="text" icon="el-icon-delete" v-if="token"></el-button>
                   </div>
                </el-col>
             </el-row>
-            <div>{{item.description}}</div>
+            <div style="font-size: 0.9rem;line-height: 1.5;color: #606c71; border-bottom: 1px solid #E4E7ED; text-align:left; padding:10px 0px 0px 0px">
+               {{item.updateTime}}
+            </div>
+            <div style="font-size: 1.1rem;line-height: 1.5;color: #303133;padding: 10px 0px 0px 0px; text-align:left">
+               {{item.description}}
+            </div>
             <!-- 翻页 -->
 
          </el-card>
@@ -87,6 +92,7 @@ export default {
                for(let key in result[i].files){
                   let data = {}
                   data['title'] = key
+                  data['updateTime'] = this.$util.utcToLocal(result[i]['updated_at'])
                   data['url'] = result[i].files[key]
                   data['description'] = result[i]['description']
                   data['id'] = result[i]['id']
