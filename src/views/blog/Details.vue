@@ -1,4 +1,5 @@
 <template>
+
    <div style="min-height:600px" v-loading="loading">
       <el-card shadow="never" style="margin-height:400px">
          <div slot="header">
@@ -25,7 +26,7 @@
             <div style="font-family: 微软雅黑; text-align:left">{{blog.description}}</div>
          </div>
          <div class="mavon-editor">
-            <mavon-editor v-html="blog.content"></mavon-editor>
+            <mavon-editor v-html="blog.content" class="markdown-body"></mavon-editor>
          </div>
 
          <!-- <div v-html="blog.content" class="markdownbody" style="padding-top:20px"> </div> -->
@@ -36,6 +37,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import GistApi from '../../api/gist'
+import "mavon-editor/dist/css/index.css";
 export default {
    data () {
       return {
@@ -71,8 +73,8 @@ export default {
             this.blog.title = key;
             this.blog.description = result.description;
             // console.log(result.files[key].content)
-            // this.blog.content = this.$markdown(result.files[key].content)
-            this.blog.content = result.files[key].content
+            this.blog.content = this.$markdown(result.files[key].content)
+            // this.blog.content = result.files[key].content
             this.blog.creationTime = this.$util.utcToLocal(result.created_at);
             this.blog.editTime = this.$util.utcToLocal(result.updated_at);
             break

@@ -10,7 +10,7 @@
                <el-input v-model="form.description" type="text-area"></el-input>
             </el-form-item>
             <el-form-item label="博客正文"  prop="content">
-               <mavon-editor style="max-height: 500px" v-model="form.content" :toolbars="toolBars"></mavon-editor>
+               <mavon-editor @change="change" style="max-height: 500px" v-model="form.content" :toolbars="toolBars"></mavon-editor>
             </el-form-item>
             <el-form-item>
                <el-button type="primary" @click="onSubmit" :loading="submitButton.loading" :disabled="submitButton.disabled">修改</el-button>
@@ -132,6 +132,9 @@ export default {
                this.publish()
             })
          }
+      },
+      change(value,render){
+         this.form.content = render
       },
       publish(){
          this.$refs['form'].validate((valid)=>{

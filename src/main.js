@@ -7,16 +7,18 @@ import store from './store'
 import utils from './utils/utils'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import MavonEditor from 'mavon-editor'
+import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import 'mavon-editor/dist/markdown/github-markdown.min.css'
+
 
 Vue.use(ElementUI)
-Vue.use(MavonEditor)
+Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
 Vue.prototype.$util = utils
-Vue.prototype.$markdown = function(value){
-  return MavonEditor.markdownIt.render(value)
+Vue.prototype.$markdown = function (value) {
+  return mavonEditor.markdownIt.render(value)
 }
 
 /* eslint-disable no-new */

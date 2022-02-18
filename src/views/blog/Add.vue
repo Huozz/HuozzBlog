@@ -9,7 +9,7 @@
                <el-input v-model="form.description"></el-input>
             </el-form-item>
             <el-form-item label="博客正文" prop="content">
-               <mavon-editor @imgAdd="imgAdd" v-model="form.content" style="max-height: 500px" ref="content" :toolbars="toolbars"></mavon-editor>
+               <mavon-editor @imgAdd="imgAdd" @change="change" v-model="form.content" style="max-height: 500px" ref="md" :subfield="false" :toolbars="toolbars"></mavon-editor>
             </el-form-item>
             <el-form-item>
                <el-button type="primary" @click="onSubmit" :loading="submitButton.loading" :disabled="submitButton.disabled">发表</el-button>
@@ -100,7 +100,10 @@ export default {
 
    methods: {
       imgAdd(){
-
+         this.$refs['md'].$img2Url(pos, file.miniurl)
+      },
+      change(value,render){
+         this.form.content = render
       },
       onSubmit(){
          // 检查token是否通过验证，如果没有则弹出token验证框
@@ -119,6 +122,8 @@ export default {
                // 表单验证通过，按钮进入加载状态，禁用再次点击
                this.submitButton.loading = true
                this.submitButton.disabled = true
+               console.log(this.form.content)
+               console.log(this.html)
                GistApi.create(this.form).then((response)=>{
                   let result = response.data
                   console.log(result)
